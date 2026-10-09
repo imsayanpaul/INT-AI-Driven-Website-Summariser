@@ -67,7 +67,7 @@ export default function App() {
             Website URL
           </label>
 
-          <div className="flex gap-2">
+          <div className="flex flex-col gap-2 sm:flex-row">
             <input
               id="url"
               type="url"
@@ -75,12 +75,12 @@ export default function App() {
               placeholder="paste a website link"
               value={url}
               onChange={(e) => setUrl(e.target.value)}
-              className="flex-1 rounded-md border border-slate-300 bg-white px-3 py-2 outline-none focus:border-slate-500"
+              className="min-w-0 flex-1 rounded-md border border-slate-300 bg-white px-3 py-2 outline-none focus:border-slate-500"
             />
             <button
               type="submit"
               disabled={loading}
-              className="flex items-center gap-2 rounded-md bg-slate-800 px-4 text-sm font-medium text-white hover:bg-slate-700 disabled:opacity-60"
+              className="flex items-center justify-center gap-2 rounded-md bg-slate-800 px-4 py-2 text-sm font-medium text-white hover:bg-slate-700 disabled:opacity-60"
             >
               {loading && <Spinner />}
               {loading ? "Working..." : "Summarise"}
