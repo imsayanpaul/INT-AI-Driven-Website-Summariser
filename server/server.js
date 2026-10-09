@@ -1,6 +1,8 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
+import summariseRouter from "./routes/summarise.js"
+
 
 dotenv.config();
 
@@ -12,6 +14,8 @@ app.use(express.json());
 app.get("/health", (req, res) => {
   res.send("ok");
 });
+
+app.use("/api", summariseRouter);
 
 const PORT = process.env.PORT || 5000;
 
