@@ -37,22 +37,26 @@ router.post("/summarise", async (req, res) => {
     return res.status(200).json({
       message: "Webpage summarized successfully.",
       url: parsedUrl.href,
-      title: webpage.title, 
+      title: webpage.title,
       summary,
     });
-
-    
   } catch (error) {
+    console.error("Summarisation error:", error);
+
     if (error.name === "TimeoutError" || error.name === "AbortError") {
       return res.status(504).json({
         error: "The webpage took too long to respond.",
       });
     }
 
-    console.error("Webpage fetch error:", error.message);
+    if (error.message?.includes("Website returned HTTP")) {
+      return res.status(502).json({
+        error: error.message,
+      });
+    }
 
-    return res.status(502).json({
-      error: "Unable to fetch the webpage.",
+    return res.status(500).json({
+      error: "Failed to summarise the webpage. Please try again.",
     });
   }
 });
