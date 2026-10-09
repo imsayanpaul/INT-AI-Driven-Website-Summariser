@@ -1,5 +1,6 @@
 import express from "express";
 import { extractWebpageText } from "../services/webpageService.js";
+import { generateSummary } from "../services/aiService.js";
 
 const router = express.Router();
 
@@ -31,11 +32,13 @@ router.post("/summarise", async (req, res) => {
 
     const webpage = await extractWebpageText(parsedUrl.href);
 
+    const summary = await generateSummary(webpage.text);
+
     return res.status(200).json({
-      message: "Webpage text extracted successfully.",
+      message: "Webpage summarized successfully.",
       url: parsedUrl.href,
-      title: webpage.title,
-      text: webpage.text,
+      title: webpage.title, 
+      summary,
     });
 
     

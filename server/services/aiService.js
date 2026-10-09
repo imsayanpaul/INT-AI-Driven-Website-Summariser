@@ -6,7 +6,7 @@ const groq = new Groq({
 
 export async function generateSummary(text) {
   const completion = await groq.chat.completions.create({
-    model: "llama-3.3-70b-versatile",
+    model: "openai/gpt-oss-120b",
     messages: [
       {
         role: "system",
@@ -15,7 +15,7 @@ export async function generateSummary(text) {
       },
       {
         role: "user",
-        content: `Summarize this webpage:\n\n${text}`,
+        content: `Summarize this webpage:\n\n${text.slice(0, 12000)}`,
       },
     ],
     temperature: 0.3,
