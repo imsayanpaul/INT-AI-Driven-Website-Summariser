@@ -92,7 +92,7 @@ export default function App() {
 
         {loading && (
           <p className="mt-6 text-center text-sm text-slate-500">
-            Reading the page, give it a few seconds...
+            loading, give it a few seconds...
           </p>
         )}
 

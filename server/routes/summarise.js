@@ -56,7 +56,7 @@ router.post("/summarise", async (req, res) => {
     }
 
     return res.status(500).json({
-      error: "Failed to summarise the webpage. Please try again.",
+      error: error.message || "Failed to summarise the webpage.",
     });
   }
 });

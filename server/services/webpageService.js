@@ -6,6 +6,10 @@ export async function extractWebpageText(url) {
   });
 
   if (!response.ok) {
+    if (response.status === 403) {
+      throw new Error("Request Blocked, try a public URL.");
+    }
+
     throw new Error(`Website returned HTTP ${response.status}`);
   }
 
@@ -23,10 +27,7 @@ export async function extractWebpageText(url) {
 
   const title = $("title").text().trim() || "Untitled webpage";
 
-  const text = $("body")
-    .text()
-    .replace(/\s+/g, " ")
-    .trim();
+  const text = $("body").text().replace(/\s+/g, " ").trim();
 
   if (!text) {
     throw new Error("No readable text was found on this webpage.");
