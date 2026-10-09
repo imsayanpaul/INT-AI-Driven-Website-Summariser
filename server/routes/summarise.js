@@ -1,4 +1,5 @@
 import express from "express";
+import { extractWebpageText } from "../services/webpageService.js";
 
 const router = express.Router();
 
@@ -22,33 +23,24 @@ router.post("/summarise", async (req, res) => {
       });
     }
 
-
     if (!["http:", "https:"].includes(parsedUrl.protocol)) {
       return res.status(400).json({
         error: "Only HTTP and HTTPS URLs are supported.",
       });
     }
 
-    const response = await fetch(parsedUrl.href, {
-      signal: AbortSignal.timeout(10_000),
-    });
-
-    if (!response.ok) {
-      return res.status(502).json({
-        error: `The website returned HTTP ${response.status}.`,
-      });
-    }
-
-    const html = await response.text();
+    const webpage = await extractWebpageText(parsedUrl.href);
 
     return res.status(200).json({
-      message: "Webpage fetched successfully.",
+      message: "Webpage text extracted successfully.",
       url: parsedUrl.href,
-      html,
+      title: webpage.title,
+      text: webpage.text,
     });
+
+    
   } catch (error) {
-    if (error.name === "TimeoutError" ||
-        error.name === "AbortError") {
+    if (error.name === "TimeoutError" || error.name === "AbortError") {
       return res.status(504).json({
         error: "The webpage took too long to respond.",
       });
