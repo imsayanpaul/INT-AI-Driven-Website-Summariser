@@ -2,6 +2,8 @@
 
 Live: https://website-summariser.vercel.app
 
+Demo video: https://drive.google.com/file/d/1foMLzF7uCtras839C4cdMptHHF4tEkTZ/view?usp=drive_link
+
 Small app that takes a URL and gives you a short summary of the page. Built with React + Vite on the frontend, Node/Express on the backend, and Groq(model used: openai/gpt-oss-120b) for the actual summarising.
 
 ## Running it locally
