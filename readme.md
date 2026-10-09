@@ -1,5 +1,7 @@
 # Website Summariser - Indus Net Technologies Limited assignment 1
 
+Live: https://website-summariser.vercel.app
+
 Small app that takes a URL and gives you a short summary of the page. Built with React + Vite on the frontend, Node/Express on the backend, and Groq(model used: openai/gpt-oss-120b) for the actual summarising.
 
 ## Running it locally

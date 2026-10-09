@@ -34,30 +34,15 @@ router.post("/summarise", async (req, res) => {
 
     const summary = await generateSummary(webpage.text);
 
-    return res.status(200).json({
-      message: "Webpage summarized successfully.",
-      url: parsedUrl.href,
-      title: webpage.title,
-      summary,
-    });
-  } catch (error) {
-    console.error("Summarisation error:", error);
+    res.json({ url: parsedUrl.href, title: webpage.title, summary });
+  } catch (err) {
+    console.error(err);
 
-    if (error.name === "TimeoutError" || error.name === "AbortError") {
-      return res.status(504).json({
-        error: "The webpage took too long to respond.",
-      });
+    if (err.name === "TimeoutError") {
+      return res.status(504).json({ error: "That page took too long to load." });
     }
 
-    if (error.message?.includes("Website returned HTTP")) {
-      return res.status(502).json({
-        error: error.message,
-      });
-    }
-
-    return res.status(500).json({
-      error: error.message || "Failed to summarise the webpage.",
-    });
+    res.status(500).json({ error: err.message || "Couldn't summarise that page." });
   }
 });
 
