@@ -24,7 +24,7 @@ cd server
 npm install
 ```
 
-Create a `.env` in `server folder`:
+Create a `.env` file in `server folder`:
 
 ```
 GROQ_API_KEY=your_key_here
